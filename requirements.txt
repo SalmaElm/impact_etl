@@ -2,3 +2,6 @@ boto3
 pandas
 requests
 snowflake-connector-python==2.8.2
+pyarrow==5.0.0
+setuptools==58.5.0
+setuptools_scm==7.0.0
