@@ -54,7 +54,7 @@ load_dotenv(dotenv_path=env_path)
 # Email configuration
 sender_email = "salma@seed.com"  # Your Gmail Enterprise email address
 app_password = os.environ.get('app_password')  # If you have two-factor authentication enabled
-recipient_email = "salma@seed.com"  # Email address to send the log file to
+recipient_email = ["salma@seed.com", "data-analytics@seed.com"]  # Email address to send the log file to
 
 end_date = dt.now().strftime('%Y-%m-%d')
 file_ts = dt.now().strftime('%Y-%m-%d_%H:%M:%S')
@@ -230,7 +230,7 @@ filtered_data_result = fetch_and_filter_data()
 upload_to_s3(filtered_data_result, s3_file_name)
 update_snowflake_table(filtered_data_result)
 
-count = email_wrapper(file_path)
+count = email_wrapper(file_path, recipient_email)
                                       
 if count <= 0:                
     send_email(file_path, sender_email, recipient_email, subject, app_password)  

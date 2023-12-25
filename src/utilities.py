@@ -21,26 +21,8 @@ file_ts = datetime.datetime.now().strftime("%y%m%d%H%M%S")
 
 logger.info(f'Impact report data load begins at {str(datetime.datetime.now())}...')
 
-
-def send_email(subject, body, sender_email, app_password, recipient_email, attachment_path=None):
-    # Set up the email content
-    message = MIMEMultipart()
-    message["From"] = sender_email
-    message["To"] = recipient_email
-    message["Subject"] = subject
-
-    # Attach the log content as plain text in the email body
-    message.attach(MIMEText(body, "plain"))
-
-    # Connect to the SMTP server and send the email
-    with smtplib.SMTP("smtp.gmail.com", 587) as server:
-        server.starttls()
-        server.login(sender_email, app_password)  # Use your App Password here if needed
-        server.sendmail(sender_email, recipient_email, message)
-
-
 # Email wrapper for error handling
-def email_wrapper(file_path):
+def email_wrapper(file_path, recipient_emails):
     directory = file_path + '/logs'
 
     search_phrases = ["ERROR"]
@@ -60,21 +42,19 @@ def email_wrapper(file_path):
 
     return count
 
-
 # Send confirmation email on SUCCESS
-def send_email(file_path, sender_email, recipient_email, subject, app_password):
+def send_email(file_path, sender_email, recipient_emails, subject, app_password):
     COMMASPACE = ', '
     directory = f'{file_path}/logs'
 
     sender = f'{sender_email}'
-    recipients = recipient_email.split(',')
 
     # Create the enclosing (outer) message
     outer = MIMEMultipart()
 
     outer['Subject'] = f'{subject} Automation - SUCCESS -  {date.today()}'
 
-    outer['To'] = COMMASPACE.join(recipients)
+    outer['To'] = COMMASPACE.join(recipient_emails)
     outer['From'] = sender_email
 
     logger.info('Sending E-mail notification...')
@@ -120,23 +100,21 @@ def send_email(file_path, sender_email, recipient_email, subject, app_password):
     with smtplib.SMTP("smtp.gmail.com", 587) as server:
         server.starttls()
         server.login(sender_email, app_password)  # Use your App Password here if needed
-        server.sendmail(sender_email, recipient_email, message)
-
+        server.sendmail(sender_email, recipient_emails, message)
 
 # Send confirmation email on FAILURE
-def send_failure_email(file_path, sender_email, recipient_email, subject, app_password):
+def send_failure_email(file_path, sender_email, recipient_emails, subject, app_password):
     COMMASPACE = ', '
     directory = f'{file_path}/logs'
 
-    sender = f'{sender_email}'
-    recipients = recipient_email.split(',')
+    sender_email = f'{sender_email}'
 
     # Create the enclosing (outer) message
     outer = MIMEMultipart()
 
     outer['Subject'] = f'{subject} Automation - FAILURE -  {date.today()}'
 
-    outer['To'] = COMMASPACE.join(recipients)
+    outer['To'] = COMMASPACE.join(recipient_emails)
     outer['From'] = sender_email
 
     logger.info('Sending E-mail notification...')
@@ -182,4 +160,4 @@ def send_failure_email(file_path, sender_email, recipient_email, subject, app_pa
     with smtplib.SMTP("smtp.gmail.com", 587) as server:
         server.starttls()
         server.login(sender_email, app_password)  # Use your App Password here if needed
-        server.sendmail(sender_email, recipient_email, message)
+        server.sendmail(sender_email, recipient_emails, message)
