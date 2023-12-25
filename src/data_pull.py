@@ -113,7 +113,7 @@ def fetch_and_filter_data():
 
     end_date = datetime.now().strftime('%Y-%m-%d')
 
-    base_url = f'https://IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1:uFNo8XDUvvQYd6RSDmGzCievx%7ENDYB%7EB@api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/ReportExport/att_adv_performance_by_day_pm_only.json?ADV_AFFILIATE_MEDIA_SOURCE=0&PARTNER_RADIUS_SOLR=0&MS_MP_GROUP=0&IS_CROSS_CAMPAIGN=0&CONV_CURRENCY=USD&START_DATE=2023-07-01&END_DATE={end_date}&timeRange=YTD&compareEnabled=false&SUBAID=19848'
+    base_url = f'https://IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1:uFNo8XDUvvQYd6RSDmGzCievx%7ENDYB%7EB@api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/ReportExport/att_adv_performance_by_day_pm_only.json?START_DATE=2023-07-01&END_DATE={end_date}&SUBAID=19848'
     headers = {
         'Accept': 'text/csv',
         'Authorization': 'Basic ' + base64.b64encode(f"{account_sid}:{auth_token}".encode('utf-8')).decode('utf-8')
