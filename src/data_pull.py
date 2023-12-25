@@ -79,7 +79,8 @@ def update_snowflake_table(data):
     except Exception as e:
         print(f"Error updating Snowflake table: {e}")
     finally:
-        conn.close()
+        if conn is not None:
+            conn.close()  # Close conn if it is not None
 
 def fetch_and_filter_data():
     account_sid = os.environ.get('account_sid')
