@@ -29,6 +29,7 @@ aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
 snowflake_user = os.environ.get('SNOWFLAKE_USER')
 snowflake_password = os.environ.get('SNOWFLAKE_PASSWORD')
 def update_snowflake_table(data):
+    # conn = None  # Initialize conn to None outside try block
     try:
         # Connect to Snowflake
         conn = snowflake.connector.connect(
@@ -78,9 +79,9 @@ def update_snowflake_table(data):
         print(f"Data loaded into Snowflake table successfully.")
     except Exception as e:
         print(f"Error updating Snowflake table: {e}")
-    finally:
-        if conn is not None:
-            conn.close()  # Close conn if it is not None
+    # finally:
+    #     if conn is not None:
+    #         conn.close()  # Close conn if it is not None
 
 def fetch_and_filter_data():
     account_sid = os.environ.get('account_sid')
