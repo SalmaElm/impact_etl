@@ -1,0 +1,105 @@
+INFO:__main__:The dowbload url is: https://api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/Jobs/5930eed5-0e21-4dbc-9ed6-07c1442ea186/Download.json
+INFO:__main__:The dowbload url is: https://api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/Jobs/5930eed5-0e21-4dbc-9ed6-07c1442ea186/Download.json
+INFO:__main__:File uploaded successfully to impact-performance-data/performance_2023-12-24_21:39:17.csv
+INFO:snowflake.connector.connection:Snowflake Connector for Python Version: 3.1.1, Python Version: 3.9.6, Platform: macOS-14.2.1-arm64-arm-64bit
+INFO:snowflake.connector.connection:This connection is in OCSP Fail Open Mode. TLS Certificates would be checked for validity and revocation status. Any other Certificate Revocation related exceptions or OCSP Responder failures would be disregarded in favor of connectivity.
+INFO:snowflake.connector.connection:Setting use_openssl_only mode to False
+INFO:snowflake.connector.cursor:query: [USE DATABASE STAGE_DB;]
+INFO:snowflake.connector.cursor:query execution done
+INFO:snowflake.connector.cursor:Number of results in first chunk: 1
+INFO:snowflake.connector.cursor:query: [USE SCHEMA GROWTH;]
+INFO:snowflake.connector.cursor:query execution done
+INFO:snowflake.connector.cursor:Number of results in first chunk: 1
+INFO:snowflake.connector.cursor:query: [TRUNCATE TABLE PERFORMANCE_DATA;]
+INFO:snowflake.connector.cursor:query execution done
+INFO:snowflake.connector.cursor:Number of results in first chunk: 1
+INFO:snowflake.connector.cursor:query: [COPY INTO "PERFORMANCE_DATA" FROM @my_stage/performance_2023-12-24_21:39:17.csv ...]
+INFO:snowflake.connector.cursor:query execution done
+INFO:snowflake.connector.cursor:Number of results in first chunk: 1
+INFO:__main__:Data loaded into Snowflake table successfully.
+INFO:snowflake.connector.connection:closed
+INFO:snowflake.connector.connection:No async queries seem to be running, deleting session
+2023-12-24 21:41:04,211 - INFO - The dowbload url is: https://api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/Jobs/5930eed5-0e21-4dbc-9ed6-07c1442ea186/Download.json
+2023-12-24 21:41:06,431 - INFO - The dowbload url is: https://api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/Jobs/5930eed5-0e21-4dbc-9ed6-07c1442ea186/Download.json
+2023-12-24 21:41:09,455 - INFO - File uploaded successfully to impact-performance-data/performance_2023-12-24_21:41:03.csv
+2023-12-24 21:41:09,459 - INFO - Snowflake Connector for Python Version: 3.1.1, Python Version: 3.9.6, Platform: macOS-14.2.1-arm64-arm-64bit
+2023-12-24 21:41:09,460 - INFO - This connection is in OCSP Fail Open Mode. TLS Certificates would be checked for validity and revocation status. Any other Certificate Revocation related exceptions or OCSP Responder failures would be disregarded in favor of connectivity.
+2023-12-24 21:41:09,460 - INFO - Setting use_openssl_only mode to False
+2023-12-24 21:41:10,501 - INFO - query: [USE DATABASE STAGE_DB;]
+2023-12-24 21:41:10,611 - INFO - query execution done
+2023-12-24 21:41:10,612 - INFO - Number of results in first chunk: 1
+2023-12-24 21:41:10,612 - INFO - query: [USE SCHEMA GROWTH;]
+2023-12-24 21:41:10,751 - INFO - query execution done
+2023-12-24 21:41:10,751 - INFO - Number of results in first chunk: 1
+2023-12-24 21:41:10,751 - INFO - query: [TRUNCATE TABLE PERFORMANCE_DATA;]
+2023-12-24 21:41:11,240 - INFO - query execution done
+2023-12-24 21:41:11,241 - INFO - Number of results in first chunk: 1
+2023-12-24 21:41:11,241 - INFO - query: [COPY INTO "PERFORMANCE_DATA" FROM @my_stage/performance_2023-12-24_21:41:03.csv ...]
+2023-12-24 21:41:13,118 - INFO - query execution done
+2023-12-24 21:41:13,118 - INFO - Number of results in first chunk: 1
+2023-12-24 21:41:13,118 - INFO - Data loaded into Snowflake table successfully.
+2023-12-24 21:41:13,142 - INFO - closed
+2023-12-24 21:41:13,143 - INFO - No async queries seem to be running, deleting session
+2023-12-24 22:28:59,063 - INFO - The dowbload url is: https://api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/Jobs/5930eed5-0e21-4dbc-9ed6-07c1442ea186/Download.json
+2023-12-24 22:29:00,906 - INFO - The dowbload url is: https://api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/Jobs/5930eed5-0e21-4dbc-9ed6-07c1442ea186/Download.json
+2023-12-24 22:29:03,244 - INFO - File uploaded successfully to impact-performance-data/performance_2023-12-24_22:28:57.csv
+2023-12-24 22:29:03,245 - INFO - Snowflake Connector for Python Version: 3.1.1, Python Version: 3.9.6, Platform: macOS-14.2.1-arm64-arm-64bit
+2023-12-24 22:29:03,245 - INFO - This connection is in OCSP Fail Open Mode. TLS Certificates would be checked for validity and revocation status. Any other Certificate Revocation related exceptions or OCSP Responder failures would be disregarded in favor of connectivity.
+2023-12-24 22:29:03,245 - INFO - Setting use_openssl_only mode to False
+2023-12-24 22:29:04,292 - INFO - query: [USE DATABASE STAGE_DB;]
+2023-12-24 22:29:04,413 - INFO - query execution done
+2023-12-24 22:29:04,414 - INFO - Number of results in first chunk: 1
+2023-12-24 22:29:04,414 - INFO - query: [USE SCHEMA GROWTH;]
+2023-12-24 22:29:04,539 - INFO - query execution done
+2023-12-24 22:29:04,540 - INFO - Number of results in first chunk: 1
+2023-12-24 22:29:04,540 - INFO - query: [TRUNCATE TABLE PERFORMANCE_DATA;]
+2023-12-24 22:29:05,003 - INFO - query execution done
+2023-12-24 22:29:05,004 - INFO - Number of results in first chunk: 1
+2023-12-24 22:29:05,004 - INFO - query: [COPY INTO "PERFORMANCE_DATA" FROM @my_stage/performance_2023-12-24_22:28:57.csv ...]
+2023-12-24 22:29:06,435 - INFO - query execution done
+2023-12-24 22:29:06,436 - INFO - Number of results in first chunk: 1
+2023-12-24 22:29:06,437 - INFO - Data loaded into Snowflake table successfully.
+2023-12-24 22:29:10,246 - INFO - closed
+2023-12-24 22:29:10,247 - INFO - No async queries seem to be running, deleting session
+2023-12-24 22:31:19,901 - INFO - The dowbload url is: https://api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/Jobs/5930eed5-0e21-4dbc-9ed6-07c1442ea186/Download.json
+2023-12-24 22:31:21,750 - INFO - The dowbload url is: https://api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/Jobs/5930eed5-0e21-4dbc-9ed6-07c1442ea186/Download.json
+2023-12-24 22:31:24,173 - INFO - File uploaded successfully to impact-performance-data/performance_2023-12-24_22:31:18.csv
+2023-12-24 22:31:24,177 - INFO - Snowflake Connector for Python Version: 3.1.1, Python Version: 3.9.6, Platform: macOS-14.2.1-arm64-arm-64bit
+2023-12-24 22:31:24,178 - INFO - This connection is in OCSP Fail Open Mode. TLS Certificates would be checked for validity and revocation status. Any other Certificate Revocation related exceptions or OCSP Responder failures would be disregarded in favor of connectivity.
+2023-12-24 22:31:24,178 - INFO - Setting use_openssl_only mode to False
+2023-12-24 22:31:24,996 - INFO - query: [USE DATABASE STAGE_DB;]
+2023-12-24 22:31:25,138 - INFO - query execution done
+2023-12-24 22:31:25,138 - INFO - Number of results in first chunk: 1
+2023-12-24 22:31:25,139 - INFO - query: [USE SCHEMA GROWTH;]
+2023-12-24 22:31:25,276 - INFO - query execution done
+2023-12-24 22:31:25,276 - INFO - Number of results in first chunk: 1
+2023-12-24 22:31:25,277 - INFO - query: [TRUNCATE TABLE PERFORMANCE_DATA;]
+2023-12-24 22:31:25,530 - INFO - query execution done
+2023-12-24 22:31:25,531 - INFO - Number of results in first chunk: 1
+2023-12-24 22:31:25,531 - INFO - query: [COPY INTO "PERFORMANCE_DATA" FROM @my_stage/performance_2023-12-24_22:31:18.csv ...]
+2023-12-24 22:31:26,880 - INFO - query execution done
+2023-12-24 22:31:26,880 - INFO - Number of results in first chunk: 1
+2023-12-24 22:31:26,881 - INFO - Data loaded into Snowflake table successfully.
+2023-12-24 22:31:29,922 - INFO - closed
+2023-12-24 22:31:29,923 - INFO - No async queries seem to be running, deleting session
+2023-12-24 22:34:49,271 - INFO - The dowbload url is: https://api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/Jobs/5930eed5-0e21-4dbc-9ed6-07c1442ea186/Download.json
+2023-12-24 22:34:51,370 - INFO - The dowbload url is: https://api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/Jobs/5930eed5-0e21-4dbc-9ed6-07c1442ea186/Download.json
+2023-12-24 22:34:54,015 - INFO - File uploaded successfully to impact-performance-data/performance_2023-12-24_22:34:48.csv
+2023-12-24 22:34:54,019 - INFO - Snowflake Connector for Python Version: 3.1.1, Python Version: 3.9.6, Platform: macOS-14.2.1-arm64-arm-64bit
+2023-12-24 22:34:54,020 - INFO - This connection is in OCSP Fail Open Mode. TLS Certificates would be checked for validity and revocation status. Any other Certificate Revocation related exceptions or OCSP Responder failures would be disregarded in favor of connectivity.
+2023-12-24 22:34:54,020 - INFO - Setting use_openssl_only mode to False
+2023-12-24 22:34:54,812 - INFO - query: [USE DATABASE STAGE_DB;]
+2023-12-24 22:34:54,943 - INFO - query execution done
+2023-12-24 22:34:54,944 - INFO - Number of results in first chunk: 1
+2023-12-24 22:34:54,944 - INFO - query: [USE SCHEMA GROWTH;]
+2023-12-24 22:34:55,114 - INFO - query execution done
+2023-12-24 22:34:55,115 - INFO - Number of results in first chunk: 1
+2023-12-24 22:34:55,116 - INFO - query: [TRUNCATE TABLE PERFORMANCE_DATA;]
+2023-12-24 22:34:55,480 - INFO - query execution done
+2023-12-24 22:34:55,481 - INFO - Number of results in first chunk: 1
+2023-12-24 22:34:55,481 - INFO - query: [COPY INTO "PERFORMANCE_DATA" FROM @my_stage/performance_2023-12-24_22:34:48.csv ...]
+2023-12-24 22:34:57,260 - INFO - query execution done
+2023-12-24 22:34:57,261 - INFO - Number of results in first chunk: 1
+2023-12-24 22:34:57,261 - INFO - Data loaded into Snowflake table successfully.
+2023-12-24 22:34:59,044 - INFO - closed
+2023-12-24 22:34:59,044 - INFO - No async queries seem to be running, deleting session

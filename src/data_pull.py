@@ -12,13 +12,33 @@ from boto3.s3.transfer import S3Transfer
 import logging
 import os
 from dotenv import load_dotenv
+from utilities import send_email  # Import the send_email function from utilities.py
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
+# Set up the email content
+subject = "Impact Log File"
+body = "Please find attached the log file."
+
+# Configure logging to a file in a 'logs' directory
+log_directory = os.path.abspath(os.path.join(__file__, "../..", "logs"))
+os.makedirs(log_directory, exist_ok=True)
+log_file_path = os.path.join(log_directory, "impact_log.log")
+# Set up logging
+log_file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "logs"))
+file_handler = logging.FileHandler(log_file_path)
+
+# Add a formatter and a file handler to the logger
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', handlers=[logging.FileHandler(log_file_path, mode='a')])
 logger = logging.getLogger(__name__)
+logger.addHandler(file_handler)
+
 file_path = os.path.abspath(os.path.join(__file__ ,"../.."))
 env_path = f'{file_path}/src/.env'
 load_dotenv(dotenv_path=env_path)
+
+# Email configuration
+sender_email = "salma@seed.com"  # Your Gmail Enterprise email address
+app_password = os.environ.get('app_password')  # If you have two-factor authentication enabled
+recipient_email = "salma@seed.com"  # Email address to send the log file to
 
 end_date = datetime.now().strftime('%Y-%m-%d')
 file_ts = datetime.now().strftime('%Y-%m-%d_%H:%M:%S')
@@ -80,9 +100,9 @@ def update_snowflake_table(data):
                         ON_ERROR=CONTINUE
                         PURGE=TRUE;""")
 
-        print(f"Data loaded into Snowflake table successfully.")
+        logger.info("Data loaded into Snowflake table successfully.")
     except Exception as e:
-        print(f"Error updating Snowflake table: {e}")
+        logger.error(f"Error updating Snowflake table: {e}")
     # finally:
     #     if conn is not None:
     #         conn.close()  # Close conn if it is not None
@@ -113,7 +133,7 @@ def fetch_and_filter_data():
             if result_uri:
                 # Construct the download URL using the ResultUri
                 download_url = f'https://api.impact.com{result_uri}'
-
+                logger.info(f'The dowbload url is: {download_url}')
                 # Download the CSV file
                 response_csv = requests.get(download_url, headers=headers)
 
@@ -139,13 +159,23 @@ def fetch_and_filter_data():
                 return filtered_data
 
             else:
+                logger.error('ResultUri not found in the response.')
                 return "ResultUri not found in the response."
 
         except (json.JSONDecodeError, csv.Error) as e:
+            logger.error(f'Error: {e}')
+            email_subject = "ETL Job Status - Error"
+            email_body = f'Error: {e}'
+            send_email(email_subject, email_body, sender_email, app_password, recipient_email)
             return f"Error: {e}"
 
     else:
+        logger.error(f"Error: {response.status_code}\nResponse content: {response.text}")
+        email_subject = "ETL Job Status - Error"
+        email_body = f"Error: {response.status_code}\nResponse content: {response.text}"
+        send_email(email_subject, email_body, sender_email, app_password, recipient_email)
         return f"Error: {response.status_code}\nResponse content: {response.text}"
+        
 
 def save_to_csv(data, filename=f'performance_{end_date}.csv'):
     with open(filename, 'w', newline='') as csvfile:
@@ -154,9 +184,6 @@ def save_to_csv(data, filename=f'performance_{end_date}.csv'):
 
 # Fetch and filter data
 filtered_data_result = fetch_and_filter_data()
-
-# Save the filtered data to CSV
-# save_to_csv(filtered_data_result, f'performance_{end_date}.csv')
 
 # Function to upload a file to S3
 def upload_to_s3(data, s3_file_name):
@@ -179,9 +206,17 @@ def upload_to_s3(data, s3_file_name):
         s3.put_object(Body=csv_buffer.getvalue().encode('utf-8'), Bucket=s3_bucket_name, Key=s3_file_name)
 
 
-        print(f"File uploaded successfully to {s3_bucket_name}/{s3_file_name}")
+        logger.info(f"File uploaded successfully to {s3_bucket_name}/{s3_file_name}")
+        email_subject = "ETL Job Status"
+        email_body = f"File uploaded successfully to {s3_bucket_name}/{s3_file_name}"
+        send_email(email_subject, email_body, sender_email, app_password, recipient_email)
+
     except Exception as e:
-        print(f"Error uploading file to S3: {e}")
+        logger.error(f"Error uploading file to S3: {e}")
+        email_subject = "ETL Job Status - Error"
+        email_body = f"Error uploading file to S3: {e}"
+        send_email(email_subject, email_body, sender_email, app_password, recipient_email)
+
 
 # Fetch and filter data
 filtered_data_result = fetch_and_filter_data()
@@ -190,5 +225,3 @@ filtered_data_result = fetch_and_filter_data()
 
 upload_to_s3(filtered_data_result, s3_file_name)
 update_snowflake_table(filtered_data_result)
-# Print the result
-# print(filtered_data_result)
