@@ -1,4 +1,4 @@
-boto3==1.18.18
-pandas==1.3.3
-requests==2.26.0
+boto3
+pandas
+requests
 snowflake-connector-python==2.8.2
