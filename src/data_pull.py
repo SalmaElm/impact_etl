@@ -232,7 +232,7 @@ update_snowflake_table(filtered_data_result)
 
 count = email_wrapper(file_path, recipient_email)
                                       
-if count <= 0:                
-    send_email(file_path, sender_email, recipient_email, subject, app_password)  
-else:
+if count > 0:                
+    # send_email(file_path, sender_email, recipient_email, subject, app_password)  
+# else:
     send_failure_email(file_path, sender_email, recipient_email, subject, app_password) 
