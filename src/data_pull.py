@@ -11,10 +11,14 @@ from io import StringIO
 from boto3.s3.transfer import S3Transfer
 import logging
 import os
+from dotenv import load_dotenv
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+file_path = os.path.abspath(os.path.join(__file__ ,"../.."))
+env_path = f'{file_path}/src/.env'
+load_dotenv(dotenv_path=env_path)
 
 end_date = datetime.now().strftime('%Y-%m-%d')
 file_ts = datetime.now().strftime('%Y-%m-%d_%H:%M:%S')
