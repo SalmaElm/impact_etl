@@ -1,24 +1,22 @@
-2023-12-25 09:59:51,245 INFO __main__ Impact report data load begins at 2023-12-25 09:59:51.245644...
-2023-12-25 09:59:52,636 INFO __main__ The dowbload url is: https://api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/Jobs/2dab980a-3bc8-478a-b547-37c77c46f8a8/Download.json
-2023-12-25 09:59:54,486 INFO __main__ The dowbload url is: https://api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/Jobs/2dab980a-3bc8-478a-b547-37c77c46f8a8/Download.json
-2023-12-25 09:59:57,094 INFO __main__ File uploaded successfully to impact-performance-data/performance_2023-12-25_09:59:51.csv
-2023-12-25 09:59:57,096 INFO snowflake.connector.connection Snowflake Connector for Python Version: 3.1.1, Python Version: 3.9.6, Platform: macOS-14.2.1-arm64-arm-64bit
-2023-12-25 09:59:57,097 INFO snowflake.connector.connection This connection is in OCSP Fail Open Mode. TLS Certificates would be checked for validity and revocation status. Any other Certificate Revocation related exceptions or OCSP Responder failures would be disregarded in favor of connectivity.
-2023-12-25 09:59:57,097 INFO snowflake.connector.connection Setting use_openssl_only mode to False
-2023-12-25 09:59:58,066 INFO snowflake.connector.cursor query: [USE DATABASE STAGE_DB;]
-2023-12-25 09:59:58,191 INFO snowflake.connector.cursor query execution done
-2023-12-25 09:59:58,191 INFO snowflake.connector.cursor Number of results in first chunk: 1
-2023-12-25 09:59:58,192 INFO snowflake.connector.cursor query: [USE SCHEMA GROWTH;]
-2023-12-25 09:59:58,307 INFO snowflake.connector.cursor query execution done
-2023-12-25 09:59:58,308 INFO snowflake.connector.cursor Number of results in first chunk: 1
-2023-12-25 09:59:58,308 INFO snowflake.connector.cursor query: [TRUNCATE TABLE PERFORMANCE_DATA;]
-2023-12-25 09:59:58,679 INFO snowflake.connector.cursor query execution done
-2023-12-25 09:59:58,679 INFO snowflake.connector.cursor Number of results in first chunk: 1
-2023-12-25 09:59:58,680 INFO snowflake.connector.cursor query: [COPY INTO "PERFORMANCE_DATA" FROM @my_stage/performance_2023-12-25_09:59:51.csv ...]
-2023-12-25 09:59:59,839 INFO snowflake.connector.cursor query execution done
-2023-12-25 09:59:59,840 INFO snowflake.connector.cursor Number of results in first chunk: 1
-2023-12-25 09:59:59,840 INFO __main__ Data loaded into Snowflake table successfully.
-2023-12-25 09:59:59,841 INFO utilities Sending E-mail notification...
-2023-12-25 09:59:59,841 INFO utilities Impact Log File data processing is completed at 2023-12-25 09:59:59.841337
-2023-12-25 10:00:01,890 INFO snowflake.connector.connection closed
-2023-12-25 10:00:01,890 INFO snowflake.connector.connection No async queries seem to be running, deleting session
+2023-12-25 17:21:04,135 INFO __main__ Impact report data load begins at 2023-12-25 17:21:04.135751...
+2023-12-25 17:21:20,791 INFO __main__ The dowbload url is: https://api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/Jobs/742e80f7-ddd1-40ec-ac71-220a4b234025/Download.json
+2023-12-25 17:27:13,006 INFO __main__ The dowbload url is: https://api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/Jobs/742e80f7-ddd1-40ec-ac71-220a4b234025/Download.json
+2023-12-25 17:28:04,223 INFO __main__ File uploaded successfully to impact-performance-data/performance_2023-12-25_17:21:06.csv
+2023-12-25 17:28:04,228 INFO snowflake.connector.connection Snowflake Connector for Python Version: 3.1.1, Python Version: 3.9.6, Platform: macOS-14.2.1-arm64-arm-64bit
+2023-12-25 17:28:04,229 INFO snowflake.connector.connection This connection is in OCSP Fail Open Mode. TLS Certificates would be checked for validity and revocation status. Any other Certificate Revocation related exceptions or OCSP Responder failures would be disregarded in favor of connectivity.
+2023-12-25 17:28:04,229 INFO snowflake.connector.connection Setting use_openssl_only mode to False
+2023-12-25 17:28:05,296 INFO snowflake.connector.cursor query: [USE DATABASE STAGE_DB;]
+2023-12-25 17:28:05,445 INFO snowflake.connector.cursor query execution done
+2023-12-25 17:28:05,446 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2023-12-25 17:28:05,447 INFO snowflake.connector.cursor query: [USE SCHEMA GROWTH;]
+2023-12-25 17:28:05,583 INFO snowflake.connector.cursor query execution done
+2023-12-25 17:28:05,583 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2023-12-25 17:28:05,584 INFO snowflake.connector.cursor query: [TRUNCATE TABLE PERFORMANCE_DATA;]
+2023-12-25 17:28:05,972 INFO snowflake.connector.cursor query execution done
+2023-12-25 17:28:05,973 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2023-12-25 17:28:05,973 INFO snowflake.connector.cursor query: [COPY INTO "PERFORMANCE_DATA" FROM @my_stage/performance_2023-12-25_17:21:06.csv ...]
+2023-12-25 17:28:07,983 INFO snowflake.connector.cursor query execution done
+2023-12-25 17:28:07,985 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2023-12-25 17:28:07,985 INFO __main__ Data loaded into Snowflake table successfully.
+2023-12-25 17:28:08,594 INFO snowflake.connector.connection closed
+2023-12-25 17:28:08,595 INFO snowflake.connector.connection No async queries seem to be running, deleting session

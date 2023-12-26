@@ -2,6 +2,7 @@ import requests
 import json
 import csv
 from datetime import datetime as dt
+from datetime import timedelta
 import base64
 import boto3
 from botocore.exceptions import NoCredentialsError
@@ -127,7 +128,7 @@ def fetch_and_filter_data():
     account_sid = os.environ.get('account_sid')
     auth_token = os.environ.get('auth_token')
 
-    end_date = dt.now().strftime('%Y-%m-%d')
+    end_date = (dt.now() + timedelta(days=2)).strftime('%Y-%m-%d')
 
     base_url = f'https://IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1:uFNo8XDUvvQYd6RSDmGzCievx%7ENDYB%7EB@api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/ReportExport/att_adv_performance_by_day_pm_only.json?START_DATE=2023-07-01&END_DATE={end_date}&SUBAID=19848'
     headers = {
