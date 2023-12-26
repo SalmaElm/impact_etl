@@ -13,6 +13,7 @@ from boto3.s3.transfer import S3Transfer
 import logging
 import os
 from dotenv import load_dotenv
+import time
 from utilities import *  # Import the send_email function from utilities.py
 
 # Set up the email content
@@ -291,10 +292,11 @@ if replay_uri:
         # Continue with the existing logic for downloading CSV, processing data, and updating Snowflake
         # Fetch and filter data
         download_url = f'https://api.impact.com{result_uri}'
+        time.sleep(5)
         logger.info(f'The dowbload url is: {download_url}')
         # Download the CSV file
         response_csv = requests.get(download_url, headers=headers)
-
+        time.sleep(5)
         # Use the csv module to parse the CSV response
         csv_reader = csv.reader(response_csv.text.splitlines())
 
@@ -308,7 +310,7 @@ if replay_uri:
 
         # Initialize the filtered data list with the header
         filtered_data = [desired_columns]
-
+        time.sleep(5)
         # Iterate over rows and extract desired columns
         for row in csv_reader:
             filtered_row = [row[i] if i is not None else None for i in indices]
