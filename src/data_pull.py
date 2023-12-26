@@ -99,7 +99,7 @@ def update_snowflake_table(data):
         cursor.execute(f"""
                        USE DATABASE STAGE_DB;""")
         cursor.execute("USE SCHEMA GROWTH;")
-        cursor.execute("TRUNCATE TABLE PERFORMANCE_DATA;""")
+        # cursor.execute("TRUNCATE TABLE PERFORMANCE_DATA;""")
         cursor.execute(f"""
                         COPY INTO "PERFORMANCE_DATA"
                         FROM @my_stage/{s3_file_name}
@@ -128,9 +128,9 @@ def fetch_and_filter_data():
     account_sid = os.environ.get('account_sid')
     auth_token = os.environ.get('auth_token')
 
-    end_date = (dt.now() + timedelta(days=5)).strftime('%Y-%m-%d')
+    end_date = (dt.now() + timedelta(days=0)).strftime('%Y-%m-%d')
 
-    base_url = f'https://IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1:uFNo8XDUvvQYd6RSDmGzCievx%7ENDYB%7EB@api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/ReportExport/att_adv_performance_by_day_pm_only.json?START_DATE=2023-07-01&END_DATE=2024-01-06&SUBAID=19848'
+    base_url = f'https://IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1:uFNo8XDUvvQYd6RSDmGzCievx%7ENDYB%7EB@api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/ReportExport/att_adv_performance_by_day_pm_only.json?START_DATE=2023-12-01&END_DATE={end_date}&SUBAID=19848'
     headers = {
         'Accept': 'text/csv',
         'Authorization': 'Basic ' + base64.b64encode(f"{account_sid}:{auth_token}".encode('utf-8')).decode('utf-8')
@@ -194,7 +194,7 @@ def save_to_csv(data, filename=f'performance_{end_date}.csv'):
         csv_writer.writerows(data)
 
 # Fetch and filter data
-filtered_data_result = fetch_and_filter_data()
+# filtered_data_result = fetch_and_filter_data()
 
 # Function to upload a file to S3
 def upload_to_s3(data, s3_file_name):
