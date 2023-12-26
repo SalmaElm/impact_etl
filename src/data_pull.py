@@ -69,6 +69,17 @@ aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
 # Retrieve Snowflake credentials from Heroku environment variables
 snowflake_user = os.environ.get('SNOWFLAKE_USER')
 snowflake_password = os.environ.get('SNOWFLAKE_PASSWORD')
+
+account_sid = os.environ.get('account_sid')
+auth_token = os.environ.get('auth_token')
+
+base_url = f'https://IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1:uFNo8XDUvvQYd6RSDmGzCievx%7ENDYB%7EB@api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/ReportExport/att_adv_performance_by_day_pm_only.json?START_DATE=2023-07-01&END_DATE={end_date}&SUBAID=19848'
+headers = {
+    'Accept': 'text/csv',
+    'Authorization': 'Basic ' + base64.b64encode(f"{account_sid}:{auth_token}".encode('utf-8')).decode('utf-8')
+    }
+
+
 def update_snowflake_table(data):
     # conn = None  # Initialize conn to None outside try block
     try:
@@ -99,7 +110,7 @@ def update_snowflake_table(data):
         cursor.execute(f"""
                        USE DATABASE STAGE_DB;""")
         cursor.execute("USE SCHEMA GROWTH;")
-        # cursor.execute("TRUNCATE TABLE PERFORMANCE_DATA;""")
+        cursor.execute("TRUNCATE TABLE PERFORMANCE_DATA;""")
         cursor.execute(f"""
                         COPY INTO "PERFORMANCE_DATA"
                         FROM @my_stage/{s3_file_name}
@@ -124,74 +135,65 @@ def update_snowflake_table(data):
     #     if conn is not None:
     #         conn.close()  # Close conn if it is not None
 
-def fetch_and_filter_data():
-    account_sid = os.environ.get('account_sid')
-    auth_token = os.environ.get('auth_token')
+# def fetch_and_filter_data():
 
-    end_date = (dt.now() + timedelta(days=0)).strftime('%Y-%m-%d')
-
-    base_url = f'https://IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1:uFNo8XDUvvQYd6RSDmGzCievx%7ENDYB%7EB@api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/ReportExport/att_adv_performance_by_day_pm_only.json?START_DATE=2023-12-01&END_DATE={end_date}&SUBAID=19848'
-    headers = {
-        'Accept': 'text/csv',
-        'Authorization': 'Basic ' + base64.b64encode(f"{account_sid}:{auth_token}".encode('utf-8')).decode('utf-8')
-    }
 
     # Send the initial request to get the job status and download URL
-    response = requests.get(base_url, headers=headers)
+    # response = requests.get(base_url, headers=headers)
 
-    if response.status_code == 200:
-        try:
-            # Parse the JSON response
-            response_data = json.loads(response.text)
+    # if response.status_code == 200:
+    #     try:
+    #         # Parse the JSON response
+    #         response_data = json.loads(response.text)
 
-            # Extract the ResultUri
-            result_uri = response_data.get('ResultUri', '')
+    #         # Extract the ResultUri
+    #         result_uri = response_data.get('ResultUri', '')
 
-            if result_uri:
-                # Construct the download URL using the ResultUri
-                download_url = f'https://api.impact.com{result_uri}'
-                logger.info(f'The dowbload url is: {download_url}')
-                # Download the CSV file
-                response_csv = requests.get(download_url, headers=headers)
+    #         if result_uri:
+    #             # Construct the download URL using the ResultUri
+    #             download_url = f'https://api.impact.com{result_uri}'
+    #             logger.info(f'The dowbload url is: {download_url}')
+    #             # Download the CSV file
+    #             response_csv = requests.get(download_url, headers=headers)
 
-                # Use the csv module to parse the CSV response
-                csv_reader = csv.reader(response_csv.text.splitlines())
+    #             # Use the csv module to parse the CSV response
+    #             csv_reader = csv.reader(response_csv.text.splitlines())
 
-                # Assuming the first row is the header
-                header = next(csv_reader)
-                # print("Available columns:", header)  # Print the actual header names
+    #             # Assuming the first row is the header
+    #             header = next(csv_reader)
+    #             # print("Available columns:", header)  # Print the actual header names
 
-                # Get the indices of the desired columns dynamically
-                desired_columns = ['date_display', 'media_count', 'Clicks', 'Actions', 'Revenue', 'ActionCost', 'OtherCost', 'TotalCost', 'CPC']
-                indices = [header.index(col) if col in header else None for col in desired_columns]
+    #             # Get the indices of the desired columns dynamically
+    #             desired_columns = ['date_display', 'media_count', 'Clicks', 'Actions', 'Revenue', 'ActionCost', 'OtherCost', 'TotalCost', 'CPC']
+    #             indices = [header.index(col) if col in header else None for col in desired_columns]
 
-                # Initialize the filtered data list with the header
-                filtered_data = [desired_columns]
+    #             # Initialize the filtered data list with the header
+    #             filtered_data = [desired_columns]
 
-                # Iterate over rows and extract desired columns
-                for row in csv_reader:
-                    filtered_row = [row[i] if i is not None else None for i in indices]
-                    filtered_data.append(filtered_row)
+    #             # Iterate over rows and extract desired columns
+    #             for row in csv_reader:
+    #                 filtered_row = [row[i] if i is not None else None for i in indices]
+    #                 filtered_data.append(filtered_row)
 
-                return filtered_data
+    #             return filtered_data
 
-            else:
-                logger.error('ResultUri not found in the response.')
-                return "ResultUri not found in the response."
+    #         else:
+    #             logger.error('ResultUri not found in the response.')
+    #             return "ResultUri not found in the response."
 
-        except (json.JSONDecodeError, csv.Error) as e:
-            logger.error(f'Error: {e}')
-            return f"Error: {e}"
+    #     except (json.JSONDecodeError, csv.Error) as e:
+    #         logger.error(f'Error: {e}')
+    #         return f"Error: {e}"
 
-    else:
-        logger.error(f"Error: {response.status_code}\nResponse content: {response.text}")
-        return f"Error: {response.status_code}\nResponse content: {response.text}"
+    # else:
+    #     logger.error(f"Error: {response.status_code}\nResponse content: {response.text}")
+    #     return f"Error: {response.status_code}\nResponse content: {response.text}"
         
 
-def save_to_csv(data, filename=f'performance_{end_date}.csv'):
-    with open(filename, 'w', newline='') as csvfile:
-        csv_writer = csv.writer(csvfile)
-        csv_writer.writerows(data)
+# def save_to_csv(data, filename=f'performance_{end_date}.csv'):
+    # with open(filename, 'w', newline='') as csvfile:
+    #     csv_writer = csv.writer(csvfile)
+    #     csv_writer.writerows(data)
 
 # Fetch and filter data
 # filtered_data_result = fetch_and_filter_data()
@@ -223,13 +225,105 @@ def upload_to_s3(data, s3_file_name):
         logger.error(f"Error uploading file to S3: {e}")
 
 
-# Fetch and filter data
-filtered_data_result = fetch_and_filter_data()
 
-# Upload the filtered data to S3 as a CSV file
+def get_replay_uri():
+    # Update the base_url to fetch the ReplayUri
+    base_url = f'https://IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1:uFNo8XDUvvQYd6RSDmGzCievx%7ENDYB%7EB@api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/ReportExport/att_adv_performance_by_day_pm_only.json?START_DATE=2023-07-01&END_DATE={end_date}&SUBAID=19848'
+    headers = {
+        'Accept': 'application/json',  # Update Accept header to expect JSON response
+        'Authorization': 'Basic ' + base64.b64encode(f"{account_sid}:{auth_token}".encode('utf-8')).decode('utf-8')
+    }
 
-upload_to_s3(filtered_data_result, s3_file_name)
-update_snowflake_table(filtered_data_result)
+    response = requests.get(base_url, headers=headers)
+
+    if response.status_code == 200:
+        try:
+            # Parse the JSON response
+            response_data = json.loads(response.text)
+            replay_uri = response_data.get('ReplayUri', '')
+
+            if replay_uri:
+                return replay_uri
+            else:
+                logger.error('ReplayUri not found in the response.')
+                return None
+
+        except json.JSONDecodeError as e:
+            logger.error(f'Error decoding JSON: {e}')
+            return None
+
+    else:
+        logger.error(f"Error: {response.status_code}\nResponse content: {response.text}")
+        return None
+
+def get_result_uri(replay_uri):
+    # Use the PUT method to get the ResultUri from the ReplayUri
+    put_url = f'https://api.impact.com{replay_uri}'
+    response_put = requests.put(put_url, headers=headers)
+
+    if response_put.status_code == 200:
+        try:
+            response_data_put = json.loads(response_put.text)
+            result_uri = response_data_put.get('ResultUri', '')
+
+            if result_uri:
+                return result_uri
+            else:
+                logger.error('ResultUri not found in the PUT response.')
+                return None
+
+        except json.JSONDecodeError as e:
+            logger.error(f'Error decoding PUT response JSON: {e}')
+            return None
+
+    else:
+        logger.error(f"Error in PUT request: {response_put.status_code}\nResponse content: {response_put.text}")
+        return None
+    
+# Fetch the ReplayUri
+replay_uri = get_replay_uri()
+
+if replay_uri:
+    # Use the ReplayUri to get the ResultUri
+    result_uri = get_result_uri(replay_uri)
+
+    if result_uri:
+        # Continue with the existing logic for downloading CSV, processing data, and updating Snowflake
+        # Fetch and filter data
+        download_url = f'https://api.impact.com{result_uri}'
+        logger.info(f'The dowbload url is: {download_url}')
+        # Download the CSV file
+        response_csv = requests.get(download_url, headers=headers)
+
+        # Use the csv module to parse the CSV response
+        csv_reader = csv.reader(response_csv.text.splitlines())
+
+        # Assuming the first row is the header
+        header = next(csv_reader)
+        # print("Available columns:", header)  # Print the actual header names
+
+        # Get the indices of the desired columns dynamically
+        desired_columns = ['date_display', 'media_count', 'Clicks', 'Actions', 'Revenue', 'ActionCost', 'OtherCost', 'TotalCost', 'CPC']
+        indices = [header.index(col) if col in header else None for col in desired_columns]
+
+        # Initialize the filtered data list with the header
+        filtered_data = [desired_columns]
+
+        # Iterate over rows and extract desired columns
+        for row in csv_reader:
+            filtered_row = [row[i] if i is not None else None for i in indices]
+            filtered_data.append(filtered_row)
+        # Fetch and filter data
+        filtered_data_result = filtered_data
+        upload_to_s3(filtered_data, s3_file_name)
+        update_snowflake_table(filtered_data_result)
+
+    else:
+        logger.error('Failed to obtain ResultUri from ReplayUri.')
+
+else:
+    logger.error('Failed to obtain ReplayUri.')
+
 
 count = email_wrapper(file_path, recipient_email)
                                       
