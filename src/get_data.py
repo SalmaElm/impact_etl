@@ -74,11 +74,11 @@ snowflake_password = os.environ.get('SNOWFLAKE_PASSWORD')
 account_sid = os.environ.get('account_sid')
 auth_token = os.environ.get('auth_token')
 
-base_url = f'https://IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1:uFNo8XDUvvQYd6RSDmGzCievx%7ENDYB%7EB@api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/ReportExport/att_adv_performance_by_day_pm_only.json?START_DATE=2023-07-01&END_DATE={end_date}&SUBAID=19848'
-headers = {
-    'Accept': 'text/csv',
-    'Authorization': 'Basic ' + base64.b64encode(f"{account_sid}:{auth_token}".encode('utf-8')).decode('utf-8')
-    }
+# base_url = f'https://IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1:uFNo8XDUvvQYd6RSDmGzCievx%7ENDYB%7EB@api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/ReportExport/att_adv_performance_by_day_pm_only.json?START_DATE=2023-07-01&END_DATE={end_date}&SUBAID=19848'
+# headers = {
+#     'Accept': 'text/csv',
+#     'Authorization': 'Basic ' + base64.b64encode(f"{account_sid}:{auth_token}".encode('utf-8')).decode('utf-8')
+#     }
 
 
 def update_snowflake_table(data):
@@ -240,6 +240,7 @@ def get_replay_uri():
     if response.status_code == 200:
         try:
             # Parse the JSON response
+            time.sleep(5)
             response_data = json.loads(response.text)
             replay_uri = response_data.get('ReplayUri', '')
 
@@ -260,6 +261,10 @@ def get_replay_uri():
 def get_result_uri(replay_uri):
     # Use the PUT method to get the ResultUri from the ReplayUri
     put_url = f'https://api.impact.com{replay_uri}'
+    headers = {
+    'Accept': 'application/json',  # Update Accept header to expect JSON response
+    'Authorization': 'Basic ' + base64.b64encode(f"{account_sid}:{auth_token}".encode('utf-8')).decode('utf-8')
+    }
     response_put = requests.put(put_url, headers=headers)
 
     if response_put.status_code == 200:
@@ -286,12 +291,17 @@ replay_uri = get_replay_uri()
 
 if replay_uri:
     # Use the ReplayUri to get the ResultUri
+    time.sleep(5)
     result_uri = get_result_uri(replay_uri)
 
     if result_uri:
         # Continue with the existing logic for downloading CSV, processing data, and updating Snowflake
         # Fetch and filter data
         download_url = f'https://api.impact.com{result_uri}'
+        headers = {
+        'Accept': 'text/csv',  # Update Accept header to expect JSON response
+        'Authorization': 'Basic ' + base64.b64encode(f"{account_sid}:{auth_token}".encode('utf-8')).decode('utf-8')
+        }
         time.sleep(5)
         logger.info(f'The dowbload url is: {download_url}')
         # Download the CSV file
