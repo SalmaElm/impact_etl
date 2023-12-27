@@ -81,6 +81,71 @@ headers = {
     }
 
 
+def update_snowflake_table_2(data):
+    try:
+        # Connect to Snowflake
+        conn = snowflake.connector.connect(
+            user=snowflake_user,
+            password=snowflake_password,
+            role='ACCOUNTADMIN',
+            account='xca53965',
+            warehouse='QUERY_EXECUTION',
+            database='STAGE_DB',
+            schema='GROWTH'
+        )
+
+        # Convert data to a Pandas DataFrame
+        df = pd.DataFrame(data[1:], columns=data[0])
+
+        # Create a CSV in-memory buffer
+        csv_buffer = StringIO()
+        df.to_csv(csv_buffer, index=False)
+
+        # Seek to the beginning of the buffer
+        csv_buffer.seek(0)
+
+        # Use COPY command to load data into Snowflake stage table
+        stage_table_name = 'PERFORMANCE_DATA'
+        stage_file_name = 'my_stage_file.csv'
+
+        cursor = conn.cursor()
+        cursor.execute(f"""
+                       USE DATABASE STAGE_DB;""")
+        cursor.execute("USE SCHEMA GROWTH;")
+
+        # Upload data to the Snowflake stage table
+        cursor.execute(f"""
+                        PUT file://{csv_buffer}
+                        @mystage/{s3_file_name}""")
+
+        # Use MERGE to insert new records and update existing ones
+        cursor.execute(f"""
+                        MERGE INTO PERFORMANCE_DATA target
+                        USING {stage_table_name}@my_stage source
+                        ON target.display_date = source.display_date
+                        WHEN MATCHED THEN
+                            UPDATE SET
+                                target.display_date = source.display_date,
+                                target.media_count = source.media_count,
+                                target.clicks = source.clicks,
+                                target.actions = source.actions,
+                                target.revenue = source.revenue,
+                                target.actioncost = source.actioncost,
+                                target.othercost = source.othercost,
+                                target.totalcost = source.totalcost,
+                                target.cpc = source.cpc
+                        WHEN NOT MATCHED THEN
+                            INSERT (display_date, media_count, clicks, actions, 
+                            revenue, actioncost, othercost, totalcost, cpc)
+                            VALUES (source.display_date, source.media_count, source.clicks, source.actions, 
+                            source.revenue, source.actioncost, source.othercost, source.totalcost, source.cpc);""")
+
+        logger.info("Data merged into Snowflake table successfully.")
+    except Exception as e:
+        logger.error(f"Error updating Snowflake table: {e}")
+
+# ... (Other functions remain unchanged)
+
 def update_snowflake_table(data):
     # conn = None  # Initialize conn to None outside try block
     try:
@@ -226,8 +291,7 @@ def upload_to_s3(data, s3_file_name):
         logger.error(f"Error uploading file to S3: {e}")
 
 
-
-def get_replay_uri():
+def get_replay_uri(retry_on_empty_row=True):
     # Update the base_url to fetch the ReplayUri
     base_url = f'https://IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1:uFNo8XDUvvQYd6RSDmGzCievx%7ENDYB%7EB@api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/ReportExport/att_adv_performance_by_day_pm_only.json?START_DATE=2023-07-01&END_DATE={end_date}&SUBAID=19848'
     headers = {
@@ -235,27 +299,41 @@ def get_replay_uri():
         'Authorization': 'Basic ' + base64.b64encode(f"{account_sid}:{auth_token}".encode('utf-8')).decode('utf-8')
     }
 
-    response = requests.get(base_url, headers=headers)
+    retry_count = 0
+    max_retries = 5  # You can adjust the maximum number of retries as needed
 
-    if response.status_code == 200:
-        try:
-            # Parse the JSON response
-            response_data = json.loads(response.text)
-            replay_uri = response_data.get('ReplayUri', '')
+    while retry_count < max_retries:
+        response = requests.get(base_url, headers=headers)
 
-            if replay_uri:
-                return replay_uri
-            else:
-                logger.error('ReplayUri not found in the response.')
+        if response.status_code == 200:
+            try:
+                # Parse the JSON response
+                response_data = json.loads(response.text)
+                replay_uri = response_data.get('ReplayUri', '')
+
+                if replay_uri:
+                    return replay_uri
+                else:
+                    logger.error('ReplayUri not found in the response.')
+                    return None
+
+            except json.JSONDecodeError as e:
+                logger.error(f'Error decoding JSON: {e}')
                 return None
 
-        except json.JSONDecodeError as e:
-            logger.error(f'Error decoding JSON: {e}')
+        elif response.status_code == 406 and retry_on_empty_row:
+            # Check if the response has an empty row
+            logger.warning('Empty row found in the response. Retrying after 1 minute...')
+            time.sleep(60)  # Wait for 1 minute before retrying
+            retry_count += 1
+
+        else:
+            logger.error(f"Error: {response.status_code}\nResponse content: {response.text}")
             return None
 
-    else:
-        logger.error(f"Error: {response.status_code}\nResponse content: {response.text}")
-        return None
+    logger.error(f"Exceeded maximum retries ({max_retries}). Unable to obtain ReplayUri.")
+    return None
+
 
 def get_result_uri(replay_uri):
     # Use the PUT method to get the ResultUri from the ReplayUri
@@ -292,39 +370,72 @@ if replay_uri:
         # Continue with the existing logic for downloading CSV, processing data, and updating Snowflake
         # Fetch and filter data
         download_url = f'https://api.impact.com{result_uri}'
-        time.sleep(5)
-        logger.info(f'The dowbload url is: {download_url}')
-        # Download the CSV file
-        response_csv = requests.get(download_url, headers=headers)
-        time.sleep(5)
-        # Use the csv module to parse the CSV response
-        csv_reader = csv.reader(response_csv.text.splitlines())
+        logger.info(f'The download URL is: {download_url}')
 
-        # Assuming the first row is the header
-        header = next(csv_reader)
-        # print("Available columns:", header)  # Print the actual header names
+        retry_count_csv = 0
+        max_retries_csv = 5  # You can adjust the maximum number of retries as needed
+        filtered_data = None  # Initialize filtered_data outside the loop
 
-        # Get the indices of the desired columns dynamically
-        desired_columns = ['date_display', 'media_count', 'Clicks', 'Actions', 'Revenue', 'ActionCost', 'OtherCost', 'TotalCost', 'CPC']
-        indices = [header.index(col) if col in header else None for col in desired_columns]
+        while retry_count_csv < max_retries_csv:
+            # Download the CSV file with 'Accept' header set to CSV
+            response_csv = requests.get(download_url, headers={'Accept': 'text/csv', **headers})
 
-        # Initialize the filtered data list with the header
-        filtered_data = [desired_columns]
-        time.sleep(5)
-        # Iterate over rows and extract desired columns
-        for row in csv_reader:
-            filtered_row = [row[i] if i is not None else None for i in indices]
-            filtered_data.append(filtered_row)
-        # Fetch and filter data
-        filtered_data_result = filtered_data
-        upload_to_s3(filtered_data, s3_file_name)
-        update_snowflake_table(filtered_data_result)
+            if response_csv.status_code == 200:
+                # Use the csv module to parse the CSV response
+                csv_reader = csv.reader(response_csv.text.splitlines())
+
+                # Assuming the first row is the header
+                header = next(csv_reader)
+                # print("Available columns:", header)  # Print the actual header names
+
+                # Get the indices of the desired columns dynamically
+                desired_columns = ['date_display', 'media_count', 'Clicks', 'Actions', 'Revenue', 'ActionCost', 'OtherCost', 'TotalCost', 'CPC']
+                indices = [header.index(col) if col in header else None for col in desired_columns]
+
+                # Initialize the filtered data list with the header
+                filtered_data = [desired_columns]
+
+                # Iterate over rows and extract desired columns
+                for row in csv_reader:
+                    # Transform the "date_display" column format
+                    date_display_str = row[indices[0]]
+                    if date_display_str:
+                        # Convert to datetime and then format to 'yyyy-mm-dd'
+                        date_obj = dt.strptime(date_display_str, '%b %d, %Y')
+                        formatted_date = date_obj.strftime('%Y-%m-%d')
+                        row[indices[0]] = formatted_date
+
+                    filtered_row = [row[i] if i is not None else None for i in indices]
+                    filtered_data.append(filtered_row)
+
+                # Upload to S3
+                upload_to_s3(filtered_data, s3_file_name)
+
+                # Update Snowflake table
+                update_snowflake_table(filtered_data)
+                # update_snowflake_table(filtered_data_result)
+
+                # Exit the loop since CSV download and processing were successful
+                break
+
+            elif response_csv.status_code == 406:
+                # Check if the response has an empty row
+                logger.warning('Empty row found in the CSV response. Retrying after 1 minute...')
+                time.sleep(60)  # Wait for 1 minute before retrying
+                retry_count_csv += 1
+            else:
+                logger.error(f"Error in CSV download: {response_csv.status_code}\nResponse content: {response_csv.text}")
+                break  # Exit the loop in case of other errors
+        else:
+            logger.error(f"Exceeded maximum retries ({max_retries_csv}). Unable to obtain CSV data.")
 
     else:
         logger.error('Failed to obtain ResultUri from ReplayUri.')
 
 else:
     logger.error('Failed to obtain ReplayUri.')
+
+
 
 
 count = email_wrapper(file_path, recipient_email)
