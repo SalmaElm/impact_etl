@@ -146,7 +146,7 @@ def update_snowflake_table_2(data):
 
 # ... (Other functions remain unchanged)
 
-def update_snowflake_table(data):
+def update_snowflake_table(data, db, stage_name):
     # conn = None  # Initialize conn to None outside try block
     try:
         # Connect to Snowflake
@@ -156,7 +156,7 @@ def update_snowflake_table(data):
             role='ACCOUNTADMIN',
             account='xca53965',
             warehouse='QUERY_EXECUTION',
-            database='STAGE_DB',
+            database=f'{db}',
             schema='GROWTH'
         )
 
@@ -174,12 +174,12 @@ def update_snowflake_table(data):
         # Use COPY command to load data into Snowflake table
         cursor = conn.cursor()
         cursor.execute(f"""
-                       USE DATABASE STAGE_DB;""")
+                       USE DATABASE {db};""")
         cursor.execute("USE SCHEMA GROWTH;")
         cursor.execute("TRUNCATE TABLE PERFORMANCE_DATA;""")
         cursor.execute(f"""
                         COPY INTO "PERFORMANCE_DATA"
-                        FROM @my_stage/{s3_file_name}
+                        FROM {stage_name}/{s3_file_name}
                         FILE_FORMAT = (
                             TYPE=CSV,
                             SKIP_HEADER=1,
@@ -192,7 +192,7 @@ def update_snowflake_table(data):
                             TIMESTAMP_FORMAT=AUTO
                         )
                         ON_ERROR=CONTINUE
-                        PURGE=TRUE;""")
+                        PURGE=FALSE;""")
 
         logger.info("Data loaded into Snowflake table successfully.")
     except Exception as e:
@@ -412,8 +412,8 @@ if replay_uri:
                 upload_to_s3(filtered_data, s3_file_name)
 
                 # Update Snowflake table
-                update_snowflake_table(filtered_data)
-                # update_snowflake_table(filtered_data_result)
+                update_snowflake_table(filtered_data, 'STAGE_DB', '@my_stage')
+                update_snowflake_table(filtered_data, 'PROD_DB', '@impact_stg')
 
                 # Exit the loop since CSV download and processing were successful
                 break
@@ -421,6 +421,7 @@ if replay_uri:
             elif response_csv.status_code == 406:
                 # Check if the response has an empty row
                 logger.warning('Empty row found in the CSV response. Retrying after 1 minute...')
+
                 time.sleep(60)  # Wait for 1 minute before retrying
                 retry_count_csv += 1
             else:
