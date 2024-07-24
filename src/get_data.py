@@ -18,8 +18,9 @@ from utilities import *
 # Constants and Configuration
 SUBJECT = "Impact Log File"
 BODY = "Please find attached the log file."
+APP_PASSWORD = os.environ.get('APP_PASSWORD')
 SENDER_EMAIL = "salma@seed.com"
-RECIPIENT_EMAIL = ["salma@seed.com"]
+RECIPIENT_EMAIL = ["etl_notification-aaaal32zunpleciwhygs5jyeru@seedx.slack.com"]  # Email address to send the log file to
 END_DATE = dt.now().strftime('%Y-%m-%d')
 FILE_TS = dt.now().strftime('%Y-%m-%d_%H:%M:%S')
 S3_BUCKET_NAME = 'impact-performance-data'
@@ -202,6 +203,9 @@ def main():
     else:
         error_message = f':impact: Impact PERFORMANCE_DATA table load :x: FAILED :x: at {dt.now().strftime("%Y%m%d_%H%M")} with {error_count} errors, check the logs for more details'
         slack_notification(SLACK_CHANNEL, SLACK_API_TOKEN, error_message)
+        send_failure_email(
+            file_path, SENDER_EMAIL, RECIPIENT_EMAIL, SUBJECT, APP_PASSWORD)
+
 
 if __name__ == "__main__":
     main()
