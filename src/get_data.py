@@ -203,8 +203,8 @@ def main():
     else:
         error_message = f':impact: Impact PERFORMANCE_DATA table load :x: FAILED :x: at {dt.now().strftime("%Y%m%d_%H%M")} with {error_count} errors, check the logs for more details'
         slack_notification(SLACK_CHANNEL, SLACK_API_TOKEN, error_message)
-        send_failure_email(
-            file_path, SENDER_EMAIL, RECIPIENT_EMAIL, SUBJECT, APP_PASSWORD)
+        # send_failure_email(
+        #     file_path, SENDER_EMAIL, RECIPIENT_EMAIL, SUBJECT, APP_PASSWORD)
 
 
 if __name__ == "__main__":

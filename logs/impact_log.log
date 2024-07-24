@@ -1,2 +1,7 @@
-2024-07-24 14:36:47,370 INFO snowflake.connector.connection closed
-2024-07-24 14:36:47,370 INFO snowflake.connector.connection No async queries seem to be running, deleting session
+2024-07-24 15:27:11,667 INFO utilities IMPACT DATA LOAD report data load begins at 2024-07-24 15:27:11.667691...
+2024-07-24 15:27:11,667 INFO utilities Impact report data load begins at 2024-07-24 15:27:11.667785...
+2024-07-24 15:27:12,829 ERROR __main__ Error in PUT request: 403
+Response content: {"Status":"ERROR","Message":"Job not replayed. Forbidden type or status."}
+2024-07-24 15:27:13,223 INFO utilities Slack notification sent successfully.
+2024-07-24 15:27:13,225 INFO utilities Sending E-mail notification...
+2024-07-24 15:27:13,225 INFO utilities Impact Log File data processing is completed with error(s) at 2024-07-24 15:27:13.225579
