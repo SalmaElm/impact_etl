@@ -3,4 +3,4 @@ python-dotenv>=0.19.0
 pandas
 requests
 snowflake-connector-python>=2.8.2
-
+matplotlib
