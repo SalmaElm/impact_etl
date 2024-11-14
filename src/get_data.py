@@ -1,3 +1,5 @@
+from calendar import c
+from re import S
 import requests
 import json
 import csv
@@ -7,7 +9,7 @@ import boto3
 from botocore.exceptions import NoCredentialsError
 import snowflake.connector
 import pandas as pd
-from io import StringIO
+from io import StringIO, BytesIO
 from boto3.s3.transfer import S3Transfer
 import logging
 import os
@@ -22,7 +24,7 @@ SENDER_EMAIL = "salma@seed.com"
 RECIPIENT_EMAIL = ["salma@seed.com"]
 END_DATE = dt.now().strftime("%Y-%m-%d")
 FILE_TS = dt.now().strftime("%Y-%m-%d_%H:%M:%S")
-S3_BUCKET_NAME = "impact-performance-data"
+S3_BUCKET_NAME = "impact-performance"
 S3_FILE_NAME = f"performance_{FILE_TS}.csv"
 DB_NAME = os.environ.get("DB_NAME")
 STAGE_NAME = "@impact_stg"
@@ -46,7 +48,6 @@ HEADERS = {
 os.makedirs(LOG_DIRECTORY, exist_ok=True)
 logging.basicConfig(
     filename=LOG_FILE_PATH,
-    level=logging.INFO,
     format="%(asctime)s %(levelname)s %(name)s %(message)s",
 )
 logger = logging.getLogger(__name__)
@@ -215,7 +216,14 @@ def update_snowflake_table(data, credentials, stage_name):
         cursor = conn.cursor()
         cursor.execute(f"USE DATABASE {DB_NAME};")
         cursor.execute("USE SCHEMA GROWTH;")
-        cursor.execute("TRUNCATE TABLE PERFORMANCE_DATA;")
+        # cursor.execute("TRUNCATE TABLE PERFORMANCE_DATA;")
+        # Initialize S3 client
+        s3_client = boto3.client('s3')
+
+        # List all files in the specified S3 bucket and prefix
+        response = s3_client.list_objects_v2(Bucket=S3_BUCKET_NAME, Prefix=S3_FILE_NAME)
+        files = response.get('Contents', [])
+
         df = pd.DataFrame(data[1:], columns=data[0])
         csv_buffer = StringIO()
         df.to_csv(csv_buffer, index=False)
@@ -244,6 +252,172 @@ def update_snowflake_table(data, credentials, stage_name):
         logger.error(f"Error updating Snowflake table: {e}")
         slack_notification(SLACK_CHANNEL, SLACK_API_TOKEN, f"Error updating Snowflake table: {e}")
 
+def update_snowflake_table_from_s3(credentials):
+    try:
+        conn = connect_to_snowflake(credentials)
+        cursor = conn.cursor()
+        cursor.execute(f"USE DATABASE {DB_NAME};")
+        cursor.execute("USE SCHEMA GROWTH;")
+        # cursor.execute("TRUNCATE TABLE PERFORMANCE_DATA;")
+        # Initialize S3 client
+        # s3_client = boto3.client('s3')
+
+        # # List all files in the specified S3 bucket and prefix
+        # response = s3_client.list_objects_v2(Bucket=S3_BUCKET_NAME)
+        # files = response.get('Contents', [])
+
+        # for file in files:
+        #     file_key = file['Key']
+
+        #     # Skip any "folders" or empty files
+        #     if file_key.endswith('/') or file['Size'] == 0:
+        #         continue
+
+        #     # Read the file from S3
+        #     obj = s3_client.get_object(Bucket=S3_BUCKET_NAME, Key=file_key)
+        #     data = obj['Body'].read()
+
+        #     # Convert data to a DataFrame (assuming CSV format)
+        #     df = pd.read_csv(BytesIO(data))
+
+        #     # Define the Snowflake stage to use (or create a temporary one)
+        stage_name = "PROD_DB.GROWTH.IMPACT_CLEAN"
+        # cursor.execute(f"CREATE OR REPLACE STAGE {stage_name} FILE_FORMAT = (TYPE = 'CSV' FIELD_OPTIONALLY_ENCLOSED_BY = '\"' FIELD_DELIMITER = ',' SKIP_HEADER = 1 TRIM_SPACE=TRUE REPLACE_INVALID_CHARACTERS=TRUE DATE_FORMAT=AUTO TIME_FORMAT=AUTO TIMESTAMP_FORMAT=AUTO);")
+        # Step 2: Initialize S3 client
+        # s3_client = boto3.client("s3")
+        #     cursor.execute(f"CREATE STAGE IF NOT EXISTS {stage_name}")
+
+        #     # Save DataFrame to Snowflake (uploading to the stage first)
+        #     csv_data = df.to_csv(index=False, header=False)
+        #     cursor.execute(f"PUT 'file://{file_key}' @{stage_name}")
+        # Step 3: List all files in the specified S3 bucket
+        # response = s3_client.list_objects_v2(Bucket=S3_BUCKET_NAME)
+        # files = response.get("Contents", [])
+
+        file_list = cursor.execute(f"LIST @{stage_name}").fetchall()
+
+        for file in file_list:
+            file_key = file[0].split('/')[-1]
+            file_date_str = file_key.split('_')[1]  # Extract date part
+            while file_date_str == dt.now().strftime("%Y-%m-%d"):
+
+                # Step 4: Loop through all files in the S3 bucket
+                # for file in files:
+                #     file_key = file["Key"]
+
+                #     # Skip folders or empty files
+                #     if file_key.endswith("/") or file["Size"] == 0:
+                #         continue
+                #     # Step 5: Upload files to the Snowflake internal stage
+                #     # Here we are putting files from S3 into the Snowflake stage
+                #     s3_url = f"s3://{S3_BUCKET_NAME}/{file_key}"
+                #     cursor.execute(f"PUT 'file://{s3_url}' @{stage_name}")
+
+                # Step 6: Use the COPY INTO command to load data from the stage into the table
+                # Step 1: Load data into a temporary staging table with file_key column added
+                cursor.execute("""CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP (
+                    DATE_DISPLAY VARCHAR(16777216),
+                    MEDIA_COUNT NUMBER(38,0),
+                    CLICKS NUMBER(38,0),
+                    ACTIONS NUMBER(38,0),
+                    REVENUE FLOAT,
+                    ACTIONCOST FLOAT,
+                    OTHERCOST FLOAT,
+                    TOTALCOST FLOAT,
+                    CPC FLOAT,
+                    LOADED_FILE_NAME VARCHAR(16777216) DEFAULT '' );
+                    """)
+                cursor.execute(
+                    f"""
+                    COPY INTO PERFORMANCE_DATA_TEMP
+                    (
+                        DATE_DISPLAY,
+                        MEDIA_COUNT,
+                        CLICKS,
+                        ACTIONS,
+                        REVENUE,
+                        ACTIONCOST,
+                        OTHERCOST,
+                        TOTALCOST,
+                        CPC,
+                        LOADED_FILE_NAME
+                    )
+                    FROM (SELECT 
+                            $1, $2, $3, $4, $5, $6, $7, $8, $9, '{file_key}'
+                        FROM @{stage_name}/{file_key})
+                    FILE_FORMAT = (TYPE = 'CSV' 
+                                FIELD_OPTIONALLY_ENCLOSED_BY = '"', 
+                                FIELD_DELIMITER = ',', 
+                                SKIP_HEADER = 1,
+                                TRIM_SPACE=TRUE,
+                                REPLACE_INVALID_CHARACTERS=TRUE,
+                                DATE_FORMAT=AUTO,
+                                TIME_FORMAT=AUTO,
+                                TIMESTAMP_FORMAT=AUTO)
+                    ON_ERROR = 'CONTINUE';
+                """
+                )
+                # Step 6: Update Existing Records (using the DATE_DISPLAY column)
+                update_query = f"""
+                    UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p
+                    SET
+                        p.MEDIA_COUNT = s.MEDIA_COUNT,
+                        p.CLICKS = s.CLICKS,
+                        p.ACTIONS = s.ACTIONS,
+                        p.REVENUE = s.REVENUE,
+                        p.ACTIONCOST = s.ACTIONCOST,
+                        p.OTHERCOST = s.OTHERCOST,
+                        p.TOTALCOST = s.TOTALCOST,
+                        p.CPC = s.CPC,
+                        p.LOADED_FILE_NAME = s.LOADED_FILE_NAME
+                    FROM
+                        PERFORMANCE_DATA_TEMP s
+                    WHERE
+                        p.DATE_DISPLAY = s.DATE_DISPLAY;
+                """
+                cursor.execute(update_query)
+
+                # Step 7: Insert New Records (those not already in the table)
+                insert_query = f"""
+                    INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA (
+                        DATE_DISPLAY,
+                        MEDIA_COUNT,
+                        CLICKS,
+                        ACTIONS,
+                        REVENUE,
+                        ACTIONCOST,
+                        OTHERCOST,
+                        TOTALCOST,
+                        CPC,
+                        LOADED_FILE_NAME
+                    )
+                    SELECT
+                        s.DATE_DISPLAY,
+                        s.MEDIA_COUNT,
+                        s.CLICKS,
+                        s.ACTIONS,
+                        s.REVENUE,
+                        s.ACTIONCOST,
+                        s.OTHERCOST,
+                        s.TOTALCOST,
+                        s.CPC,
+                        LOADED_FILE_NAME
+                    FROM
+                        PERFORMANCE_DATA_TEMP s
+                    WHERE
+                        NOT EXISTS (
+                            SELECT 1
+                            FROM PROD_DB.GROWTH.PERFORMANCE_DATA p
+                            WHERE p.DATE_DISPLAY = s.DATE_DISPLAY
+                        );
+                """
+                cursor.execute(insert_query)
+           
+            # Step 8: Clean up and close the connection
+
+    except Exception as e:
+        logger.error(f"Error updating Snowflake table: {e}")
+        slack_notification(SLACK_CHANNEL, SLACK_API_TOKEN, f"Error updating Snowflake table: {e}")
 
 def main():
     logger = setup_logging(LOG_FILE)
@@ -259,8 +433,10 @@ def main():
             filtered_data = download_and_process_csv(result_uri)
             if filtered_data:
                 upload_to_s3(filtered_data, S3_FILE_NAME, aws_credentials)
-                update_snowflake_table(filtered_data, snowflake_credentials, STAGE_NAME)
+                download_and_process_csv(result_uri)
+                # update_snowflake_table(filtered_data, snowflake_credentials, STAGE_NAME)
     error_count = email_wrapper(FILE_PATH)
+    update_snowflake_table_from_s3(snowflake_credentials)
     if error_count == 0:
         message = f':impact: Impact PERFORMANCE_DATA tables loaded :white_check_mark: COMPLETED :white_check_mark: at {dt.now().strftime("%Y%m%d_%H%M")}'
         slack_notification(SLACK_CHANNEL, SLACK_API_TOKEN, message)

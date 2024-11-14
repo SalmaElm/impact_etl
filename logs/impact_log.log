@@ -1,7 +1,1070 @@
-2024-07-24 15:27:11,667 INFO utilities IMPACT DATA LOAD report data load begins at 2024-07-24 15:27:11.667691...
-2024-07-24 15:27:11,667 INFO utilities Impact report data load begins at 2024-07-24 15:27:11.667785...
-2024-07-24 15:27:12,829 ERROR __main__ Error in PUT request: 403
-Response content: {"Status":"ERROR","Message":"Job not replayed. Forbidden type or status."}
-2024-07-24 15:27:13,223 INFO utilities Slack notification sent successfully.
-2024-07-24 15:27:13,225 INFO utilities Sending E-mail notification...
-2024-07-24 15:27:13,225 INFO utilities Impact Log File data processing is completed with error(s) at 2024-07-24 15:27:13.225579
+2024-11-14 15:30:13,190 INFO utilities IMPACT DATA LOAD report data load begins at 2024-11-14 15:30:13.190832...
+2024-11-14 15:30:13,191 INFO utilities Impact report data load begins at 2024-11-14 15:30:13.191158...
+2024-11-14 15:30:14,690 INFO __main__ The download URL is: https://api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/Jobs/76f0dde2-8598-4076-a044-2319695ff1f9/Download
+2024-11-14 15:30:15,069 WARNING __main__ Empty row found in the CSV response. Retrying after 1 minute...
+2024-11-14 15:31:17,031 INFO __main__ File uploaded successfully to impact-performance/performance_2024-11-14_15:30:13.csv
+2024-11-14 15:31:17,659 INFO utilities Slack notification sent successfully.
+2024-11-14 15:31:17,664 INFO __main__ The download URL is: https://api.impact.com/Advertisers/IRgqMP5TEkmE4304993FGxhxf6x2xHBsb1/Jobs/76f0dde2-8598-4076-a044-2319695ff1f9/Download
+2024-11-14 15:31:18,259 INFO snowflake.connector.connection Snowflake Connector for Python Version: 3.1.1, Python Version: 3.9.6, Platform: macOS-14.7-arm64-arm-64bit
+2024-11-14 15:31:18,260 INFO snowflake.connector.connection This connection is in OCSP Fail Open Mode. TLS Certificates would be checked for validity and revocation status. Any other Certificate Revocation related exceptions or OCSP Responder failures would be disregarded in favor of connectivity.
+2024-11-14 15:31:18,260 INFO snowflake.connector.connection Setting use_openssl_only mode to False
+2024-11-14 15:31:19,190 INFO snowflake.connector.cursor query: [USE DATABASE PROD_DB;]
+2024-11-14 15:31:19,326 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:19,328 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:19,329 INFO snowflake.connector.cursor query: [USE SCHEMA GROWTH;]
+2024-11-14 15:31:19,451 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:19,452 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:19,452 INFO snowflake.connector.cursor query: [LIST @PROD_DB.GROWTH.IMPACT_CLEAN]
+2024-11-14 15:31:19,809 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:19,810 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:19,811 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:31:20,147 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:20,147 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:20,148 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:31:21,223 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:21,224 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:21,225 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:31:21,856 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:21,857 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:31:22,471 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:22,472 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:31:22,773 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:22,774 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:22,774 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:31:23,902 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:23,903 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:23,903 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:31:24,618 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:24,619 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:31:25,288 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:25,288 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:31:25,746 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:25,747 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:25,747 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:31:26,676 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:26,677 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:26,677 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:31:27,287 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:27,289 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:31:27,804 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:27,805 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:31:28,047 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:28,048 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:28,048 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:31:28,924 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:28,925 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:28,926 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:31:29,625 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:29,626 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:31:30,197 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:30,199 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:31:30,463 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:30,464 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:30,465 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:31:31,325 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:31,326 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:31,326 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:31:31,973 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:31,974 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:31:32,811 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:32,813 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:31:33,043 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:33,043 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:33,043 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:31:33,981 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:33,982 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:33,983 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:31:34,524 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:34,525 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:31:34,978 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:34,980 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:31:35,222 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:35,223 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:35,223 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:31:36,111 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:36,112 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:36,113 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:31:36,664 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:36,665 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:31:37,194 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:37,195 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:31:37,512 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:37,513 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:37,513 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:31:38,443 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:38,444 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:38,445 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:31:39,082 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:39,083 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:31:39,675 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:39,677 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:31:40,032 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:40,033 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:40,034 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:31:41,167 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:41,168 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:41,169 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:31:41,750 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:41,751 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:31:42,329 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:42,330 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:31:42,641 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:42,643 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:42,643 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:31:43,559 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:43,560 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:43,561 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:31:44,181 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:44,182 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:31:44,813 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:44,814 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:31:45,309 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:45,310 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:45,310 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:31:46,130 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:46,131 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:46,131 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:31:46,574 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:46,575 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:31:47,247 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:47,248 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:31:47,588 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:47,589 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:47,589 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:31:48,773 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:48,774 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:48,774 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:31:49,350 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:49,351 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:31:49,867 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:49,868 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:31:50,138 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:50,139 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:50,139 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:31:51,133 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:51,134 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:51,135 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:31:51,654 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:51,655 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:31:52,270 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:52,271 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:31:52,527 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:52,528 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:52,528 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:31:53,461 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:53,462 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:53,462 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:31:54,111 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:54,112 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:31:54,788 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:54,790 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:31:55,144 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:55,145 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:55,145 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:31:55,907 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:55,908 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:55,909 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:31:56,569 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:56,570 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:31:57,107 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:57,108 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:31:57,596 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:57,597 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:57,597 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:31:58,491 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:58,492 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:31:58,493 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:31:59,127 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:59,129 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:31:59,695 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:31:59,696 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:00,050 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:00,051 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:00,051 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:01,382 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:01,383 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:01,383 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:02,101 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:02,103 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:02,611 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:02,613 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:03,020 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:03,021 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:03,022 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:04,452 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:04,454 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:04,454 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:05,069 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:05,070 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:05,582 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:05,584 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:05,988 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:05,989 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:05,990 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:07,079 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:07,079 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:07,080 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:07,675 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:07,677 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:08,168 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:08,169 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:08,448 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:08,449 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:08,449 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:09,307 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:09,308 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:09,308 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:09,791 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:09,792 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:10,324 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:10,325 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:10,577 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:10,577 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:10,578 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:11,634 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:11,635 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:11,635 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:12,178 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:12,179 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:12,688 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:12,689 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:12,956 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:12,957 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:12,957 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:13,877 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:13,878 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:13,879 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:14,523 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:14,524 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:15,007 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:15,008 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:15,248 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:15,248 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:15,249 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:16,127 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:16,128 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:16,128 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:16,845 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:16,846 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:17,280 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:17,281 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:17,556 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:17,557 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:17,558 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:18,686 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:18,687 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:18,688 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:19,304 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:19,497 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:19,956 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:19,957 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:20,270 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:20,271 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:20,271 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:21,692 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:21,693 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:21,693 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:22,302 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:22,303 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:22,798 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:22,799 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:23,164 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:23,165 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:23,165 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:24,115 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:24,116 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:24,117 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:24,679 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:24,680 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:25,122 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:25,123 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:25,445 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:25,446 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:25,446 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:26,247 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:26,248 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:26,248 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:26,852 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:26,853 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:27,442 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:27,443 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:27,698 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:27,699 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:27,699 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:28,536 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:28,538 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:28,538 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:29,132 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:29,133 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:29,598 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:29,598 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:29,856 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:29,857 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:29,857 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:31,139 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:31,140 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:31,140 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:31,673 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:31,674 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:32,213 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:32,213 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:32,446 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:32,447 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:32,447 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:33,439 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:33,440 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:33,440 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:34,078 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:34,079 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:34,663 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:34,664 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:34,942 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:34,943 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:34,943 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:35,787 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:35,788 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:35,789 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:36,449 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:36,449 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:37,008 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:37,009 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:37,265 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:37,265 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:37,266 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:38,263 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:38,264 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:38,264 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:38,905 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:38,906 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:39,374 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:39,375 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:39,744 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:39,745 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:39,745 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:41,248 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:41,250 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:41,250 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:41,932 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:41,933 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:42,321 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:42,322 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:42,567 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:42,568 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:42,569 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:43,614 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:43,616 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:43,616 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:44,259 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:44,260 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:44,772 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:44,774 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:45,028 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:45,029 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:45,029 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:46,044 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:46,045 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:46,046 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:46,555 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:46,556 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:47,152 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:47,153 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:47,440 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:47,441 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:47,441 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:48,321 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:48,322 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:48,323 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:48,853 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:48,854 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:49,406 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:49,407 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:49,671 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:49,672 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:49,672 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:50,588 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:50,589 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:50,590 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:51,182 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:51,183 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:51,665 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:51,666 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:51,953 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:51,953 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:51,954 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:53,093 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:53,094 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:53,095 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:53,627 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:53,629 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:54,077 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:54,078 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:54,328 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:54,328 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:54,329 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:55,285 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:55,286 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:55,286 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:55,961 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:55,962 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:56,446 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:56,447 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:56,702 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:56,703 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:56,704 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:32:57,601 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:57,602 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:57,602 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:32:58,173 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:58,175 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:32:58,773 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:58,774 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:32:59,184 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:32:59,185 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:32:59,185 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:00,068 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:00,069 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:00,069 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:00,827 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:00,828 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:01,499 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:01,500 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:01,781 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:01,782 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:01,782 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:02,822 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:02,823 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:02,823 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:03,294 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:03,295 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:03,847 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:03,848 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:04,136 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:04,137 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:04,137 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:04,976 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:04,977 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:04,977 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:05,649 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:05,650 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:06,097 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:06,098 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:06,371 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:06,372 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:06,372 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:07,227 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:07,229 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:07,229 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:07,782 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:07,782 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:08,262 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:08,263 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:09,041 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:09,042 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:09,043 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:09,991 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:09,992 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:09,993 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:10,709 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:10,710 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:11,325 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:11,326 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:11,732 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:11,733 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:11,734 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:12,671 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:12,672 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:12,673 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:13,229 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:13,231 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:13,772 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:13,773 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:14,069 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:14,070 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:14,070 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:14,928 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:14,929 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:14,930 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:15,467 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:15,469 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:16,034 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:16,035 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:16,268 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:16,268 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:16,269 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:17,141 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:17,142 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:17,142 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:17,769 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:17,770 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:18,284 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:18,285 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:18,598 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:18,598 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:18,599 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:19,619 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:19,620 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:19,621 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:20,127 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:20,217 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:20,742 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:20,743 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:21,326 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:21,327 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:21,328 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:22,319 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:22,321 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:22,321 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:22,995 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:22,996 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:23,431 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:23,432 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:23,720 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:23,721 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:23,721 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:24,734 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:24,734 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:24,735 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:25,451 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:25,453 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:25,986 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:25,988 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:26,233 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:26,234 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:26,234 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:27,297 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:27,298 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:27,298 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:27,961 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:27,962 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:28,382 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:28,382 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:28,791 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:28,792 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:28,792 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:29,734 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:29,735 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:29,736 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:30,377 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:30,378 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:30,958 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:30,960 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:31,365 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:31,366 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:31,366 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:32,466 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:32,467 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:32,468 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:33,072 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:33,073 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:33,645 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:33,646 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:33,891 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:33,893 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:33,893 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:34,774 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:34,775 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:34,776 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:35,488 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:35,489 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:36,103 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:36,104 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:36,513 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:36,514 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:36,515 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:37,640 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:37,641 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:37,642 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:38,357 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:38,359 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:38,972 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:38,973 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:39,241 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:39,243 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:39,243 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:40,405 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:40,406 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:40,407 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:40,943 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:40,945 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:41,530 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:41,531 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:41,766 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:41,767 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:41,768 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:42,854 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:42,855 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:42,856 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:43,461 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:43,462 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:44,016 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:44,017 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:44,342 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:44,343 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:44,344 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:45,423 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:45,424 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:45,425 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:46,181 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:46,182 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:46,717 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:46,718 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:47,049 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:47,050 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:47,051 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:47,981 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:47,982 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:47,982 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:48,733 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:48,734 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:49,281 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:49,282 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:49,619 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:49,620 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:49,621 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:50,440 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:50,441 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:50,442 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:51,001 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:51,002 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:51,565 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:51,567 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:51,853 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:51,854 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:51,855 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:52,662 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:52,664 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:52,664 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:53,511 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:53,512 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:54,057 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:54,058 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:54,327 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:54,327 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:54,328 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:55,164 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:55,165 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:55,165 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:55,726 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:55,727 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:56,275 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:56,277 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:56,566 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:56,566 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:56,567 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:57,492 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:57,493 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:57,494 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:33:58,046 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:58,047 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:33:58,527 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:58,528 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:33:58,787 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:58,788 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:58,788 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:33:59,717 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:33:59,718 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:33:59,718 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:00,165 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:00,165 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:00,675 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:00,676 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:00,932 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:00,933 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:00,934 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:01,813 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:01,814 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:01,814 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:02,479 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:02,480 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:02,933 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:02,934 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:03,282 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:03,283 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:03,284 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:04,263 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:04,263 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:04,264 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:04,878 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:04,880 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:05,383 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:05,384 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:05,693 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:05,694 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:05,694 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:06,722 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:06,723 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:06,724 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:07,345 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:07,347 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:07,848 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:07,849 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:08,113 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:08,114 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:08,114 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:08,996 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:08,997 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:08,997 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:09,551 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:09,552 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:10,100 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:10,101 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:10,408 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:10,408 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:10,409 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:11,657 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:11,659 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:11,659 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:12,148 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:12,149 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:12,765 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:12,766 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:13,043 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:13,045 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:13,045 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:13,910 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:13,911 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:13,911 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:14,449 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:14,451 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:15,012 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:15,014 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:15,339 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:15,341 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:15,341 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:16,250 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:16,251 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:16,252 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:16,860 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:16,861 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:17,432 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:17,433 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:17,686 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:17,686 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:17,687 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:18,505 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:18,507 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:18,507 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:19,160 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:19,161 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:19,694 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:19,695 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:20,009 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:20,010 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:20,011 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:20,882 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:20,883 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:20,883 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:21,456 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:21,540 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:21,982 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:21,982 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:25,665 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:25,666 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:25,667 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:26,862 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:26,863 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:26,864 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:27,761 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:27,762 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:28,530 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:28,531 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:28,939 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:28,940 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:28,940 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:29,840 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:29,841 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:29,841 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:30,343 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:30,344 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:30,943 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:30,944 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:31,217 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:31,218 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:31,218 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:32,235 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:32,235 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:32,236 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:33,247 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:33,247 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:33,777 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:33,777 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:34,021 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:34,021 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:34,021 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:34,880 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:34,881 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:34,881 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:35,362 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:35,362 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:35,900 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:35,901 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:36,179 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:36,179 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:36,180 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:37,170 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:37,171 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:37,172 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:37,747 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:37,748 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:38,259 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:38,260 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:38,634 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:38,635 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:38,636 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:39,589 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:39,590 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:39,590 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:40,072 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:40,074 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:40,629 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:40,629 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:41,211 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:41,211 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:41,212 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:42,001 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:42,002 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:42,002 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:42,646 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:42,648 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:43,277 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:43,278 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:43,595 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:43,596 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:43,597 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:44,507 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:44,509 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:44,509 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:45,117 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:45,118 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:45,733 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:45,734 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:46,062 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:46,063 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:46,064 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:46,920 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:46,921 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:46,921 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:47,517 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:47,518 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:47,959 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:47,961 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:48,210 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:48,211 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:48,213 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:49,283 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:49,284 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:49,285 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:49,817 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:49,819 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:50,546 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:50,547 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:50,824 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:50,825 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:50,825 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:51,953 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:51,954 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:51,955 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:52,520 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:52,521 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:52,989 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:52,990 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:53,243 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:53,244 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:53,245 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:54,107 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:54,107 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:54,107 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:54,715 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:54,716 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:55,157 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:55,158 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:55,547 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:55,548 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:55,549 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:56,415 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:56,416 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:56,416 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:57,018 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:57,019 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:34:57,454 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:57,455 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:34:57,727 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:57,728 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:57,728 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:34:59,356 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:59,357 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:34:59,357 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:34:59,912 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:34:59,913 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:35:00,449 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:00,451 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:35:00,695 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:00,696 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:00,697 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:35:01,644 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:01,646 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:01,646 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:35:02,296 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:02,297 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:35:02,883 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:02,884 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:35:03,147 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:03,148 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:03,148 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:35:04,061 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:04,062 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:04,063 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:35:04,694 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:04,695 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:35:05,277 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:05,279 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:35:05,552 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:05,552 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:05,553 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:35:06,483 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:06,484 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:06,484 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:35:07,281 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:07,282 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:35:07,954 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:07,955 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:35:08,264 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:08,265 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:08,266 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:35:09,288 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:09,289 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:09,290 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:35:09,832 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:09,833 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:35:10,388 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:10,389 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:35:10,670 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:10,671 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:10,672 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:35:11,771 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:11,772 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:11,773 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:35:12,412 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:12,413 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:35:12,986 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:12,987 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:35:13,220 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:13,221 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:13,222 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:35:14,218 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:14,219 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:14,220 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:35:14,754 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:14,755 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:35:15,164 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:15,165 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:35:15,534 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:15,536 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:15,536 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:35:16,401 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:16,403 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:16,403 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:35:17,040 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:17,041 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:35:17,484 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:17,484 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:35:17,773 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:17,774 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:17,774 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:35:18,727 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:18,728 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:18,729 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:35:19,297 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:19,298 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:35:19,864 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:19,866 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:35:20,144 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:20,144 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:20,145 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:35:20,959 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:20,960 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:20,961 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:35:21,704 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:21,706 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:35:22,190 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:22,191 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:35:22,481 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:22,482 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:22,483 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:35:23,298 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:23,298 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:23,298 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:35:23,864 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:23,865 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:35:24,344 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:24,345 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:35:24,574 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:24,574 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:24,574 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:35:25,558 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:25,559 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:25,559 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:35:26,108 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:26,193 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:35:26,649 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:26,650 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:35:30,168 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:30,168 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:30,169 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:35:31,677 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:31,678 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:31,679 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:35:32,319 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:32,320 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:35:32,800 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:32,802 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:35:33,068 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:33,068 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:33,069 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:35:34,140 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:34,141 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:34,141 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:35:34,869 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:34,870 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:35:35,398 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:35,399 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:35:35,673 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:35,674 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:35,674 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:35:36,783 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:36,784 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:36,785 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:35:37,303 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:37,304 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:35:37,725 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:37,726 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:35:38,237 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:38,238 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:38,238 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:35:39,081 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:39,081 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:39,081 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:35:39,700 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:39,701 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:35:40,140 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:40,140 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:35:40,357 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:40,358 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:40,358 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:35:41,756 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:41,757 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:41,758 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:35:42,315 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:42,315 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:35:42,795 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:42,795 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
+2024-11-14 15:35:43,029 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:43,031 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:43,032 INFO snowflake.connector.cursor query: [COPY INTO PERFORMANCE_DATA_TEMP ( DATE_DISPLAY, MEDIA_COUNT, CLICKS, ACTIONS, RE...]
+2024-11-14 15:35:43,900 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:43,901 INFO snowflake.connector.cursor Number of results in first chunk: 1
+2024-11-14 15:35:43,901 INFO snowflake.connector.cursor query: [UPDATE PROD_DB.GROWTH.PERFORMANCE_DATA p SET p.MEDIA_COUNT = s.MEDIA_COUNT, p.CL...]
+2024-11-14 15:35:44,410 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:44,411 INFO snowflake.connector.cursor query: [INSERT INTO PROD_DB.GROWTH.PERFORMANCE_DATA ( DATE_DISPLAY, MEDIA_COUNT, CLICKS,...]
+2024-11-14 15:35:44,838 INFO snowflake.connector.cursor query execution done
+2024-11-14 15:35:44,839 INFO snowflake.connector.cursor query: [CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP ( DATE_DISPLAY VARCHAR(1...]
