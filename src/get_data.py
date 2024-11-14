@@ -299,7 +299,7 @@ def update_snowflake_table_from_s3(credentials):
         for file in file_list:
             file_key = file[0].split('/')[-1]
             file_date_str = file_key.split('_')[1]  # Extract date part
-            while file_date_str == dt.now().strftime("%Y-%m-%d"):
+            if file_date_str == dt.now().strftime("%Y-%m-%d"):
 
                 # Step 4: Loop through all files in the S3 bucket
                 # for file in files:
