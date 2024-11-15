@@ -89,7 +89,7 @@ def setup_aws_credentials():
 def setup_snowflake_credentials():
     return {
         "user": os.environ.get("SNOWFLAKE_USER"),
-        "role": "ACCOUNTADMIN",
+        "role": "ANALYST_DEV",
         "account": "xca53965",
         "private_key":private_key_bytes,
         "warehouse": "QUERY_EXECUTION",
