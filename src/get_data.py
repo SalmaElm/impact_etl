@@ -16,6 +16,8 @@ import os
 from dotenv import load_dotenv
 import time
 from utilities import *
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import serialization
 
 # Constants and Configuration
 SUBJECT = "Impact Log File"
@@ -44,6 +46,24 @@ HEADERS = {
     + base64.b64encode(f"{ACCOUNT_SID}:{AUTH_TOKEN}".encode("utf-8")).decode("utf-8"),
 }
 
+
+# Load the private key from the environment variable
+private_key_data = os.environ.get("rsa_key_p8").encode()  # Ensure it's bytes
+
+# Load the private key
+private_key = serialization.load_pem_private_key(
+    data=private_key_data,
+    password=os.environ["SNOWFLAKE_PASSWORD"].encode(),  # Ensure password is bytes
+    backend=default_backend(),
+)
+
+# Convert the private key to DER format (unencrypted)
+private_key_bytes = private_key.private_bytes(
+    encoding=serialization.Encoding.DER,
+    format=serialization.PrivateFormat.PKCS8,
+    encryption_algorithm=serialization.NoEncryption(),
+)
+
 # Initialize logging
 os.makedirs(LOG_DIRECTORY, exist_ok=True)
 logging.basicConfig(
@@ -69,9 +89,9 @@ def setup_aws_credentials():
 def setup_snowflake_credentials():
     return {
         "user": os.environ.get("SNOWFLAKE_USER"),
-        "password": os.environ.get("SNOWFLAKE_PASSWORD"),
         "role": "ACCOUNTADMIN",
         "account": "xca53965",
+        "private_key":private_key_bytes,
         "warehouse": "QUERY_EXECUTION",
         "database": DB_NAME,
         "schema": "GROWTH",
@@ -258,41 +278,8 @@ def update_snowflake_table_from_s3(credentials):
         cursor = conn.cursor()
         cursor.execute(f"USE DATABASE {DB_NAME};")
         cursor.execute("USE SCHEMA GROWTH;")
-        # cursor.execute("TRUNCATE TABLE PERFORMANCE_DATA;")
-        # Initialize S3 client
-        # s3_client = boto3.client('s3')
 
-        # # List all files in the specified S3 bucket and prefix
-        # response = s3_client.list_objects_v2(Bucket=S3_BUCKET_NAME)
-        # files = response.get('Contents', [])
-
-        # for file in files:
-        #     file_key = file['Key']
-
-        #     # Skip any "folders" or empty files
-        #     if file_key.endswith('/') or file['Size'] == 0:
-        #         continue
-
-        #     # Read the file from S3
-        #     obj = s3_client.get_object(Bucket=S3_BUCKET_NAME, Key=file_key)
-        #     data = obj['Body'].read()
-
-        #     # Convert data to a DataFrame (assuming CSV format)
-        #     df = pd.read_csv(BytesIO(data))
-
-        #     # Define the Snowflake stage to use (or create a temporary one)
         stage_name = "PROD_DB.GROWTH.IMPACT_CLEAN"
-        # cursor.execute(f"CREATE OR REPLACE STAGE {stage_name} FILE_FORMAT = (TYPE = 'CSV' FIELD_OPTIONALLY_ENCLOSED_BY = '\"' FIELD_DELIMITER = ',' SKIP_HEADER = 1 TRIM_SPACE=TRUE REPLACE_INVALID_CHARACTERS=TRUE DATE_FORMAT=AUTO TIME_FORMAT=AUTO TIMESTAMP_FORMAT=AUTO);")
-        # Step 2: Initialize S3 client
-        # s3_client = boto3.client("s3")
-        #     cursor.execute(f"CREATE STAGE IF NOT EXISTS {stage_name}")
-
-        #     # Save DataFrame to Snowflake (uploading to the stage first)
-        #     csv_data = df.to_csv(index=False, header=False)
-        #     cursor.execute(f"PUT 'file://{file_key}' @{stage_name}")
-        # Step 3: List all files in the specified S3 bucket
-        # response = s3_client.list_objects_v2(Bucket=S3_BUCKET_NAME)
-        # files = response.get("Contents", [])
 
         file_list = cursor.execute(f"LIST @{stage_name}").fetchall()
 
@@ -301,20 +288,6 @@ def update_snowflake_table_from_s3(credentials):
             file_date_str = file_key.split('_')[1]  # Extract date part
             if file_date_str == dt.now().strftime("%Y-%m-%d"):
 
-                # Step 4: Loop through all files in the S3 bucket
-                # for file in files:
-                #     file_key = file["Key"]
-
-                #     # Skip folders or empty files
-                #     if file_key.endswith("/") or file["Size"] == 0:
-                #         continue
-                #     # Step 5: Upload files to the Snowflake internal stage
-                #     # Here we are putting files from S3 into the Snowflake stage
-                #     s3_url = f"s3://{S3_BUCKET_NAME}/{file_key}"
-                #     cursor.execute(f"PUT 'file://{s3_url}' @{stage_name}")
-
-                # Step 6: Use the COPY INTO command to load data from the stage into the table
-                # Step 1: Load data into a temporary staging table with file_key column added
                 cursor.execute("""CREATE OR REPLACE TEMPORARY TABLE PERFORMANCE_DATA_TEMP (
                     DATE_DISPLAY VARCHAR(16777216),
                     MEDIA_COUNT NUMBER(38,0),
